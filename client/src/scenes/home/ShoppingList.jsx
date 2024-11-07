@@ -19,7 +19,7 @@ const ShoppingList = () => {
 
   const getItems = async () => {
     const items = await axios.get(
-      URL+"/api/items?populate=image"
+      URL+"/api/items?populate=image,sizes"
     );
 
     const itemsJson = await items.data;

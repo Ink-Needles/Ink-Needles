@@ -16,7 +16,7 @@ const Search = () => {
     useEffect(() => {
         const getItems = async () => {
             try {
-                const response = await axios.get(`${URL}/api/items?populate=image`);
+                const response = await axios.get(`${URL}/api/items?populate=image,sizes`);
                 const itemsJson = await response.data;
                 setItems(itemsJson.data);
             } catch (error) {
