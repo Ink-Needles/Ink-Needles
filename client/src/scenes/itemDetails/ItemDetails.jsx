@@ -19,6 +19,7 @@ const ItemDetails = () => {
   const [item, setItem] = useState(null);
   const [items, setItems] = useState([]);
   const [sizes, setSizes] = useState([]);
+  const [selectedSize, setSelectedSize] = useState(null);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -66,6 +67,20 @@ const ItemDetails = () => {
           <Typography sx={{ mt: "20px" }}>
             {item?.attributes?.shortDescription}
           </Typography>
+          <Box>
+            <Typography variant="h6">Available Sizes:</Typography>
+            <Box display="flex" gap="10px">
+              {sizes.map((size) => (
+                <Button
+                  key={size.id}
+                  variant={selectedSize === size.name ? 'contained' : 'outlined'}
+                  onClick={() => setSelectedSize(size.name)}
+                >
+                  {size.name}
+                </Button>
+              ))}
+            </Box>
+          </Box>
           <Box display="flex" alignItems="center" minHeight="50px">
             <Box
               display="flex"
@@ -90,17 +105,43 @@ const ItemDetails = () => {
                 minWidth: "150px",
                 padding: "10px 40px",
               }}
-              onClick={() => dispatch(addToCart({ item: { ...item, count } }))}
+              onClick={() => dispatch(addToCart({ item: { ...item, size: selectedSize, count } }))}
             >
               ADD TO CART
             </Button>
           </Box>
-          <Box mt="20px">
-            <Typography variant="h6">Available Sizes:</Typography>
-            {sizes.map((size) => (
-              <Typography key={size.id}>{size.name}</Typography>
-            ))}
-          </Box>
+        </Box>
+      </Box>
+
+      {/* INFORMATION */}
+      <Box m="20px 0">
+        <Tabs value={value} onChange={handleChange}>
+          <Tab label="DESCRIPTION" value="description" />
+          {/* <Tab label="REVIEWS" value="reviews" /> */}
+        </Tabs>
+      </Box>
+      <Box display="flex" flexWrap="wrap" gap="15px">
+        {value === "description" && (
+          <div>{item?.attributes?.longDescription}</div>
+        )}
+        {value === "reviews" && <div>reviews</div>}
+      </Box>
+
+      {/* RELATED ITEMS */}
+      <Box mt="50px" width="100%">
+        <Typography variant="h3" fontWeight="bold">
+          RELATED PRODUCTS
+        </Typography>
+        <Box
+          mt="20px"
+          display="flex"
+          flexWrap="wrap"
+          columnGap="1.33%"
+          justifyContent="space-between"
+        >
+          {items.slice(0, 4).map((item, i) => (
+            <Item key={`${item.name}-${i}`} item={item} />
+          ))}
         </Box>
       </Box>
     </Box>
