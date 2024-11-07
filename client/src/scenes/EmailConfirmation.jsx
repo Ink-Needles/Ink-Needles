@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react';
-import { useLocation, useHistory } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const URL = process.env.REACT_APP_BACKEND_URL || 'http://localhost:1337';
 
 const EmailConfirmation = () => {
   const location = useLocation();
-  const history = useHistory();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const query = new URLSearchParams(location.search);
@@ -19,7 +19,7 @@ const EmailConfirmation = () => {
             // Store the JWT in local storage or context
             localStorage.setItem('jwt', data.jwt);
             // Redirect the user to the desired page
-            history.push('/dashboard');
+            navigate('/dashboard');
           } else {
             // Handle errors
           }
