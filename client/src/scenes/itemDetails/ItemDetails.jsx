@@ -111,10 +111,10 @@ const ItemDetails = () => {
               {/* <FavoriteBorderOutlinedIcon /> */}
               {/* <Typography sx={{ ml: "5px" }}>ADD TO WISHLIST</Typography> */}
             </Box>
-            <Typography>CATEGORIES: {item?.attributes?.category
+            {/* <Typography>CATEGORIES: {item?.attributes?.category
               .replace(/([A-Z])/g, " $1")
               .replace(/^./, (str) => str.toUpperCase())}
-            </Typography>
+            </Typography> */}
           </Box>
         </Box>
       </Box>

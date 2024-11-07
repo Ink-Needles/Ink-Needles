@@ -6,14 +6,22 @@ import {
   MenuOutlined,
   SearchOutlined,
 } from "@mui/icons-material";
+import ArrowCircleRightIcon from '@mui/icons-material/ArrowCircleRight';
 import { useNavigate } from "react-router-dom";
 import { shades } from "../../theme";
 import { setIsCartOpen } from "../../state";
+import { useState } from "react";
 
 const Navbar = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart.cart);
+  const [searchOpen, setSearchOpen] = useState(false);
+  const [searchText, setSearchText] = useState("");
+
+  const handleSearch = () => {
+    navigate(`/search?text=${searchText}`);
+  };
 
   return (
     <Box
@@ -48,9 +56,36 @@ const Navbar = () => {
           columnGap="20px"
           zIndex="2"
         >
-          <IconButton sx={{ color: "black" }} style={{display: "none"}}>
+          {/* SEARCH BUTTON */}
+          <IconButton
+            sx={{ color: "black" }}
+            onClick={() => setSearchOpen(!searchOpen)}
+          >
             <SearchOutlined />
           </IconButton>
+          {searchOpen && (
+            <Box display="flex" alignItems="center">
+              <input
+                type="text"
+                value={searchText}
+                onChange={(e) => setSearchText(e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    handleSearch();
+                  }
+                }}
+                style={{
+                  padding: "5px",
+                  borderRadius: "4px",
+                  border: "1px solid #ccc",
+                  marginRight: "10px",
+                }}
+              />
+              <IconButton sx={{ color: "black" }} onClick={handleSearch}>
+                <ArrowCircleRightIcon />
+              </IconButton>
+            </Box>
+          )}
           {/* ACCOUNT BUTTON */}
           <IconButton sx={{ color: "black" }} style={{display: "none"}}>
             <PersonOutline />
