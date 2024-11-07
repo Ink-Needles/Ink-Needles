@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { Badge, Box, IconButton } from "@mui/material";
+import { Badge, Box, IconButton, Modal, Typography, TextField, Button } from "@mui/material";
 import {
   PersonOutline,
   ShoppingBagOutlined,
@@ -12,15 +12,70 @@ import { shades } from "../../theme";
 import { setIsCartOpen } from "../../state";
 import { useState } from "react";
 
+const URL = process.env.REACT_APP_BACKEND_URL || "http://localhost:1337";
+
 const Navbar = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart.cart);
   const [searchOpen, setSearchOpen] = useState(false);
   const [searchText, setSearchText] = useState("");
+  const [loginOpen, setLoginOpen] = useState(false);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
   const handleSearch = () => {
     navigate(`/search?text=${searchText}`);
+  };
+
+  const handleContinue = async () => {
+    try {
+      // Attempt to log in the user
+      const loginResponse = await fetch(URL+'/api/auth/local', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          identifier: email,
+          password: password,
+        }),
+      });
+  
+      const loginData = await loginResponse.json();
+  
+      if (loginData.jwt) {
+        // Login successful
+        localStorage.setItem('jwt', loginData.jwt);
+        setLoginOpen(false);
+        // Redirect or update state
+      } else {
+        // If login fails, try to register the user
+        const registerResponse = await fetch(URL+'/api/auth/local/register', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            username: email,
+            email: email,
+            password: password,
+          }),
+        });
+  
+        const registerData = await registerResponse.json();
+  
+        if (registerData.user) {
+          // Registration successful, confirmation email sent
+          alert('A confirmation email has been sent to your email address.');
+        } else {
+          // Handle registration errors
+          alert('An error occurred during registration.');
+        }
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  
+  const handleGoogleLogin = () => {
+    // Handle login with Google
   };
 
   return (
@@ -87,7 +142,7 @@ const Navbar = () => {
             </Box>
           )}
           {/* ACCOUNT BUTTON */}
-          <IconButton sx={{ color: "black" }} style={{display: "none"}}>
+          <IconButton sx={{ color: "black" }} onClick={() => setLoginOpen(true)}>
             <PersonOutline />
           </IconButton>
           <Badge
@@ -116,6 +171,66 @@ const Navbar = () => {
           </IconButton>
         </Box>
       </Box>
+
+      {/* LOGIN MODAL */}
+      <Modal
+        open={loginOpen}
+        onClose={() => setLoginOpen(false)}
+        aria-labelledby="login-modal-title"
+        aria-describedby="login-modal-description"
+      >
+        <Box
+          sx={{
+            position: 'absolute',
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
+            bgcolor: 'background.paper',
+            boxShadow: 24,
+            p: 4,
+            outline: 'none',
+            width: 300,
+          }}
+        >
+          <Typography id="login-modal-title" variant="h6" component="h2">
+            Login/Sign up
+          </Typography>
+          <TextField
+            fullWidth
+            margin="normal"
+            label="Email"
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <TextField
+            fullWidth
+            margin="normal"
+            label="Password"
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <Button
+            fullWidth
+            variant="contained"
+            color="primary"
+            onClick={handleContinue}
+            sx={{ mt: 2 }}
+          >
+            Continue
+          </Button>
+          <Button
+            fullWidth
+            variant="outlined"
+            color="primary"
+            onClick={handleGoogleLogin}
+            sx={{ mt: 1 }}
+          >
+            Login with Google
+          </Button>
+        </Box>
+      </Modal>
     </Box>
   );
 };
