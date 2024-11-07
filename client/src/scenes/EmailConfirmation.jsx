@@ -28,7 +28,7 @@ const EmailConfirmation = () => {
           console.error('Email confirmation error:', err);
         });
     }
-  }, [location]);
+  }, [location, navigate]);
 
   return <div>Confirming your email...</div>;
 };
