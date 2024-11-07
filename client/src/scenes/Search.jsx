@@ -15,12 +15,10 @@ const Search = () => {
 
     useEffect(() => {
         const getItems = async () => {
-            console.log(searchText)
             try {
                 const response = await axios.get(`${URL}/api/items?populate=image`);
                 const itemsJson = await response.data;
                 setItems(itemsJson.data);
-                console.log(itemsJson.data)
             } catch (error) {
                 console.error('Error fetching items:', error);
             }
