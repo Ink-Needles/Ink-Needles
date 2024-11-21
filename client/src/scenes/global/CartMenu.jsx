@@ -65,7 +65,7 @@ const CartMenu = () => {
           {/* CART LIST */}
           <Box>
             {cart.map((item) => (
-              <Box key={`${item.attributes.name}-${item.id}`}>
+              <Box key={`${item.attributes.name}-${item.id}`} onClick={() => {navigate(`/item/${item.id}`); dispatch(setIsCartOpen({}))}}>
                 <FlexBox p="15px 0">
                   <Box flex="1 1 40%">
                     <img
@@ -78,7 +78,7 @@ const CartMenu = () => {
                   <Box flex="1 1 60%">
                     {/* ITEM NAME */}
                     <FlexBox mb="5px">
-                      <Typography fontWeight="bold">
+                      <Typography fontWeight="bold" fontSize="28px">
                         {item.attributes.name} ({item.size})
                       </Typography>
                       <IconButton
