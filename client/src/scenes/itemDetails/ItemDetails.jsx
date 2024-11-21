@@ -41,6 +41,14 @@ const ItemDetails = () => {
     setItems(itemsJson.data);
   };
 
+  const handleAddToCart = () => {
+    if (!selectedSize) {
+      alert("Please select a size");
+      return;
+    }
+    dispatch(addToCart({ item: { ...item, size: selectedSize, count } }))
+  }
+
   useEffect(() => {
     getItem();
     getItems();
@@ -105,7 +113,7 @@ const ItemDetails = () => {
                 minWidth: "150px",
                 padding: "10px 40px",
               }}
-              onClick={() => dispatch(addToCart({ item: { ...item, size: selectedSize, count } }))}
+              onClick={() => handleAddToCart()}
             >
               ADD TO CART
             </Button>
