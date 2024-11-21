@@ -1,19 +1,19 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { Box, Typography, Select } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 // import { Box, IconButton, Typography, Button, Select, MenuItem } from "@mui/material";
 // import AddIcon from "@mui/icons-material/Add";
 // import RemoveIcon from "@mui/icons-material/Remove";
 // import { shades } from "../theme";
-import { addToCart } from "../state";
+// import { addToCart } from "../state";
 import { useNavigate } from "react-router-dom";
 
 const Item = ({ item, width }) => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const [count, setCount] = useState(1);
-  const [isHovered, setIsHovered] = useState(false);
-  const [selectedSize, setSelectedSize] = useState('');
+  // const dispatch = useDispatch();
+  // const [count, setCount] = useState(1);
+  // const [isHovered, setIsHovered] = useState(false);
+  // const [selectedSize, setSelectedSize] = useState('');
 
   const { price, name, image } = item.attributes;
   const imageUrl =
@@ -22,20 +22,12 @@ const Item = ({ item, width }) => {
     image?.data?.attributes?.formats?.thumbnail?.url ||
     "";
 
-  const handleAddToCart = () => {
-    if (!selectedSize) {
-      alert("Please select a size.");
-      return;
-    }
-    dispatch(addToCart({ item: { ...item, count, size: selectedSize } }));
-  };
-
   return (
     <Box width={width}>
       <Box
         position="relative"
-        onMouseOver={() => setIsHovered(true)}
-        onMouseOut={() => setIsHovered(false)}
+        // onMouseOver={() => setIsHovered(true)}
+        // onMouseOut={() => setIsHovered(false)}
       >
         {imageUrl && 
         <img
