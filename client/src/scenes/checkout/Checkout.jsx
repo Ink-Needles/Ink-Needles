@@ -128,9 +128,10 @@ const Checkout = () => {
       cashOnDelivery: values.cashOnDelivery,
       email: values.email,
       phoneNumber: values.phoneNumber,
-      products: cart.map(({ id, count }) => ({
+      products: cart.map(({ id, count, size }) => ({
         id,
         count,
+        size,
       })),
       billingInformation: values.billingAddress,
       isSameAddress: values.shippingAddress.isSameAddress,
@@ -140,7 +141,7 @@ const Checkout = () => {
     try {
       // Send request to create Stripe session on the backend
       const response = await axios.post(URL + "/api/orders", requestBody);
-      
+
       if(!response.data) {
         return console.error("No response from the server");
       }
@@ -150,11 +151,11 @@ const Checkout = () => {
       }
 
       if(!response.data.id) {
-        return console.error("Invalide response from the server");
+        return console.error("Invalid response from the server");
       }
       
       const session = await response.data;
-      
+
       // Redirect to Stripe for payment
       await stripe.redirectToCheckout({
         sessionId: session.id,

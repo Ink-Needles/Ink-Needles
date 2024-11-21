@@ -29,12 +29,11 @@ const CartMenu = () => {
   const isCartOpen = useSelector((state) => state.cart.isCartOpen);
 
   const totalPrice = cart.reduce((total, item) => {
-    console.log(cart);
     return total + item.count * item.attributes?.price;
   }, 0);
 
   return (
-    <Box //overlay
+    <Box
       display={isCartOpen ? "block" : "none"}
       backgroundColor="rgba(0, 0, 0, 0.4)"
       position="fixed"
@@ -80,7 +79,7 @@ const CartMenu = () => {
                     {/* ITEM NAME */}
                     <FlexBox mb="5px">
                       <Typography fontWeight="bold">
-                        {item.attributes.name}
+                        {item.attributes.name} ({item.size})
                       </Typography>
                       <IconButton
                         onClick={() =>
