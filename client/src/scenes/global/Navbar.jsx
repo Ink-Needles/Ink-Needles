@@ -14,7 +14,7 @@ import { useState } from "react";
 
 const URL = process.env.REACT_APP_BACKEND_URL || "http://localhost:1337";
 
-const Navbar = () => {
+const Navbar = ({account}) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart.cart);
@@ -46,6 +46,7 @@ const Navbar = () => {
         // Login successful
         localStorage.setItem('jwt', loginData.jwt);
         setLoginOpen(false);
+        navigate('/account');
         // Redirect or update state
       } else {
         // If login fails, try to register the user
@@ -142,7 +143,7 @@ const Navbar = () => {
             </Box>
           )}
           {/* ACCOUNT BUTTON */}
-          <IconButton sx={{ color: "black" }} onClick={() => setLoginOpen(true)}>
+          <IconButton sx={{ color: "black" }} onClick={() => {account ? navigate("/account") : setLoginOpen(true)}}>
             <PersonOutline />
           </IconButton>
           <Badge

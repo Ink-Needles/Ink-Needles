@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import Home from "./scenes/home/Home";
 import ItemDetails from "./scenes/itemDetails/ItemDetails";
@@ -9,23 +9,40 @@ import CartMenu from "./scenes/global/CartMenu";
 import Footer from "./scenes/global/Footer";
 import Search from "./scenes/Search";
 import EmailConfirmation from "./scenes/EmailConfirmation";
+import Account from "./scenes/Account/Account";
 
-const ScrollToTop = () => {
-  const { pathname } = useLocation();
-
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, [pathname]);
-
-  return null;
-};
+const URL = process.env.REACT_APP_BACKEND_URL || "http://localhost:1337";
 
 const App = () => {
+  const [account, setAccount] = useState(null);
+
+  useEffect(() => {
+    const getAccount = async () => {
+      const jwt = localStorage.getItem('jwt');
+      if (jwt) {
+        try {
+          const account = await fetch(URL+'/api/users/me', {
+            headers: {
+              Authorization: `Bearer ${jwt}`,
+            },
+          })
+
+          setAccount(await account.json());
+        } catch (error) {
+          console.error('Error fetching account:', error);
+          localStorage.removeItem('jwt');
+          setAccount(null);
+        }
+      }
+    };
+
+    getAccount();
+  }, []);
+
   return (
     <div className="app">
       <BrowserRouter>
-        <Navbar />
-        <ScrollToTop />
+        <Navbar account={account ? true : false} />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="item/:itemId" element={<ItemDetails />} />
@@ -33,6 +50,7 @@ const App = () => {
           <Route path="checkout/success" element={<Confirmation />} />
           <Route path="search" element={<Search />} />
           <Route path="email-confirmation" element={<EmailConfirmation />} />
+          <Route path="account" element={<Account account={account} />} />
         </Routes>
         <CartMenu />
         <Footer />

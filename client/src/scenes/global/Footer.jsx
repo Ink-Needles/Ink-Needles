@@ -29,15 +29,7 @@ const Footer = () => {
           </Typography>
           <div>
             Discover endless possibilities with our premium selection of
-            products. Shop now and experience unparalleled quality, style, and
-            convenience. From fashion and beauty essentials to home decor and
-            gadgets, we have everything you need to elevate your lifestyle.
-            Enjoy seamless browsing, secure transactions, and swift delivery.
-            Your satisfaction is our top priority, so indulge in a seamless
-            shopping experience with our reliable customer support. Join our
-            community of satisfied customers and embrace a world of online
-            shopping at its finest. Start exploring today and unlock a world of
-            limitless shopping possibilities.
+            products.
           </div>
         </Box>
 
@@ -65,10 +57,6 @@ const Footer = () => {
           <Typography variant="h4" fontWeight="bold" mb="30px">
             Contact Us
           </Typography>
-          <Typography mb="30px">
-            123 Maple Street, Toronto, Ontario, M1A 1A1
-          </Typography>
-          <Typography mb="30px">Email: jane.doe1234@example.com</Typography>
           <Typography mb="30px">+1 555-123-4567</Typography>
         </Box>
       </Box>
