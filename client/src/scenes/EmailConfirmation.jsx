@@ -1,36 +1,42 @@
-import React, { useEffect } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const URL = process.env.REACT_APP_BACKEND_URL || 'http://localhost:1337';
 
 const EmailConfirmation = () => {
-  const location = useLocation();
   const navigate = useNavigate();
 
   useEffect(() => {
-    const query = new URLSearchParams(location.search);
-    const confirmation = query.get('confirmation');
+    const confirmEmail = async () => {
+      const urlParams = new URLSearchParams(window.location.search);
+      const confirmation = urlParams.get('confirmation');
 
-    if (confirmation) {
-      fetch(URL+`/api/auth/custom-email-confirmation?confirmation=${confirmation}`)
-        .then((res) => res.json())
-        .then((data) => {
+      if (confirmation) {
+        try {
+          const response = await fetch(`${URL}/api/auth/custom-email-confirmation?confirmation=${confirmation}`);
+          const data = await response.json();
+
           if (data.jwt) {
-            // Store the JWT in local storage or context
             localStorage.setItem('jwt', data.jwt);
-            // Redirect the user to the desired page
-            navigate('/dashboard');
+            navigate('/additional-details');
           } else {
-            // Handle errors
+            console.error('Email confirmation failed');
           }
-        })
-        .catch((err) => {
-          console.error('Email confirmation error:', err);
-        });
-    }
-  }, [location, navigate]);
+        } catch (error) {
+          console.error('Error confirming email:', error);
+        }
+      }
+    };
 
-  return <div>Confirming your email...</div>;
+    confirmEmail();
+  }, [navigate]);
+
+  return (
+    <div>
+      <h1>Email Confirmation</h1>
+      <p>Confirming your email...</p>
+    </div>
+  );
 };
 
 export default EmailConfirmation;

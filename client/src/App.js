@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./scenes/home/Home";
 import ItemDetails from "./scenes/itemDetails/ItemDetails";
 import Checkout from "./scenes/checkout/Checkout";
@@ -8,8 +8,9 @@ import Navbar from "./scenes/global/Navbar";
 import CartMenu from "./scenes/global/CartMenu";
 import Footer from "./scenes/global/Footer";
 import Search from "./scenes/Search";
-import EmailConfirmation from "./scenes/EmailConfirmation";
+import WaitingConfirmation from "./scenes/WaitingConfirmation";
 import Account from "./scenes/Account/Account";
+import EmailConfirmation from "./scenes/EmailConfirmation";
 
 const URL = process.env.REACT_APP_BACKEND_URL || "http://localhost:1337";
 
@@ -30,8 +31,7 @@ const App = () => {
           setAccount(await account.json());
         } catch (error) {
           console.error('Error fetching account:', error);
-          localStorage.removeItem('jwt');
-          setAccount(null);
+          window.location.href = '/';
         }
       }
     };
@@ -49,8 +49,9 @@ const App = () => {
           <Route path="checkout" element={<Checkout />} />
           <Route path="checkout/success" element={<Confirmation />} />
           <Route path="search" element={<Search />} />
-          <Route path="email-confirmation" element={<EmailConfirmation />} />
+          <Route path="waiting-confirmation" element={<WaitingConfirmation />} />
           <Route path="account" element={<Account account={account} />} />
+          <Route path="confirmation" element={<EmailConfirmation />} />
         </Routes>
         <CartMenu />
         <Footer />

@@ -64,7 +64,8 @@ const Navbar = ({account}) => {
   
         if (registerData.user) {
           // Registration successful, confirmation email sent
-          alert('A confirmation email has been sent to your email address.');
+          setLoginOpen(false);
+          navigate('/waiting-confirmation');
         } else {
           // Handle registration errors
           alert('An error occurred during registration.');
