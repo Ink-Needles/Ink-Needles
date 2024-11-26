@@ -11,6 +11,7 @@ import Search from "./scenes/Search";
 import WaitingConfirmation from "./scenes/WaitingConfirmation";
 import Account from "./scenes/Account/Account";
 import EmailConfirmation from "./scenes/EmailConfirmation";
+import AdditionalDetails from "./scenes/AdditionalDetails";
 
 const URL = process.env.REACT_APP_BACKEND_URL || "http://localhost:1337";
 
@@ -52,6 +53,7 @@ const App = () => {
           <Route path="waiting-confirmation" element={<WaitingConfirmation />} />
           <Route path="account" element={<Account account={account} />} />
           <Route path="confirmation" element={<EmailConfirmation />} />
+          <Route path="additional-details" element={<AdditionalDetails />} />
         </Routes>
         <CartMenu />
         <Footer />

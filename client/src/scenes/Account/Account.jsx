@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import { Container, Typography, Button, Box } from '@mui/material';
+import { Container, Typography, Button, Box, IconButton } from '@mui/material';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import EditIcon from '@mui/icons-material/Edit';
 
 const URL = process.env.REACT_APP_BACKEND_URL || 'http://localhost:1337';
 
 const Account = () => {
     const [email, setEmail] = useState('');
     const [confirmed, setConfirmed] = useState(false);
+    const [personalData, setPersonalData] = useState(null);
 
     useEffect(() => {
         const getAccount = async () => {
@@ -22,6 +24,7 @@ const Account = () => {
                     const accountJson = await account.json();
                     setEmail(accountJson.email);
                     setConfirmed(accountJson.confirmed);
+                    setPersonalData(accountJson.personalData);
                 } catch (error) {
                     window.location.href = '/';
                 }
@@ -34,7 +37,7 @@ const Account = () => {
     }, []);
 
     return email ? (
-        <Container style={{ width: "80%", marginLeft: "10%", marginTop: '160px' }}>
+        <Container style={{ width: "80%", marginLeft: "10%", marginTop: '120px' }}>
             <Typography variant="h4" gutterBottom>
                 Account Information
             </Typography>
@@ -52,6 +55,31 @@ const Account = () => {
                         </Button>
                     </Box>
                 )}
+            </Box>
+
+            {/* PERSONAL DATA */}
+            <Box mt={4}>
+                <Typography variant="h4" gutterBottom>
+                    Personal Data
+                </Typography>
+                <Box display="flex" alignItems="center" justifyContent="space-between" style={{backgroundColor: "lightgrey", borderRadius: "15px", padding: "16px"}}>
+                    {personalData ? (
+                        <><Box>
+                            <Typography variant="h6" fontWeight="bold">{personalData.firstName} {personalData.lastName}</Typography>
+                            <Typography variant="body1">{personalData.streetAddress}, {personalData.city}, {personalData.country}, {personalData.zipCode}</Typography>
+                        </Box>
+                        <IconButton onClick={() => window.location.href = '/additional-details'}>
+                            <EditIcon />
+                        </IconButton></>
+                    ) : (
+                        <Box>
+                            <Button variant="contained" color="primary" onClick={() => window.location.href = '/additional-details'} style={{ marginLeft: '0.5rem' }}>
+                                Add Personal Data
+                            </Button>
+                            <Typography variant="body1" color="red" display="inline" marginLeft="12px">Important!</Typography>
+                        </Box>
+                    )}
+                </Box>
             </Box>
 
             {/* ORDERS */}
