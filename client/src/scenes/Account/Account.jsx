@@ -9,6 +9,7 @@ const Account = () => {
     const [email, setEmail] = useState('');
     const [confirmed, setConfirmed] = useState(false);
     const [personalData, setPersonalData] = useState(null);
+    const [orders, setOrders] = useState(null);
 
     useEffect(() => {
         const getAccount = async () => {
@@ -25,6 +26,15 @@ const Account = () => {
                     setEmail(accountJson.email);
                     setConfirmed(accountJson.confirmed);
                     setPersonalData(accountJson.personalData);
+
+                    // Fetch orders
+                    const ordersResponse = await fetch(`${URL}/api/get-orders/email/${accountJson.email}`, {
+                        headers: {
+                            Authorization: `Bearer ${jwt}`,
+                        },
+                    });
+                    const ordersJson = await ordersResponse.json();
+                    setOrders(ordersJson);
                 } catch (error) {
                     window.location.href = '/';
                 }
@@ -89,9 +99,22 @@ const Account = () => {
                     Orders
                 </Typography>
                 <Box display="flex" height="300px" style={{backgroundColor: "lightgrey", borderRadius: "15px", padding: "8px"}} flexDirection="column" alignItems="start">
-                    <Typography variant="body1" gutterBottom>
-                        You have no orders yet.
-                    </Typography>
+                    {(orders !== null && orders.length > 0) ? (
+                        orders.map((order) => (
+                            <Box key={order.id} mb={2}>
+                                <Typography variant="body1" fontWeight="bold">Order ID: {order.id}</Typography>
+                                <Typography variant="body1">Products: {JSON.stringify(order.products)}</Typography>
+                            </Box>
+                        ))
+                    ) : (orders !== null ? (
+                        <Typography variant="body1" gutterBottom>
+                            You have no orders yet.
+                        </Typography>
+                    ) : (
+                        <Typography variant="body1" gutterBottom>
+                            Loading...
+                        </Typography>
+                    ))}
                 </Box>
             </Box>
 
