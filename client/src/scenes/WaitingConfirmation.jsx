@@ -1,7 +1,5 @@
 import { Box } from "@mui/material";
 
-const URL = process.env.REACT_APP_BACKEND_URL || 'http://localhost:1337';
-
 const WaitingConfirmation = () => {
   return (
     <Box width="80%" m="80px auto">

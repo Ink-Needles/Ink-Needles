@@ -30,7 +30,6 @@ const ItemDetails = () => {
       URL + "/api/items/" + itemId + "?populate=image,sizes"
     );
     const itemJson = await item.data;
-    console.log(itemJson.data);
     setItem(itemJson.data);
     setSizes(itemJson.data.attributes.sizes);
   };

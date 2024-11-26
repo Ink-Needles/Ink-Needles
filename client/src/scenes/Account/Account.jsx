@@ -67,6 +67,7 @@ const Account = () => {
                         <><Box>
                             <Typography variant="h6" fontWeight="bold">{personalData.firstName} {personalData.lastName}</Typography>
                             <Typography variant="body1">{personalData.streetAddress}, {personalData.city}, {personalData.country}, {personalData.zipCode}</Typography>
+                            <Typography variant="body1">{personalData.phoneNumber}</Typography>
                         </Box>
                         <IconButton onClick={() => window.location.href = '/additional-details'}>
                             <EditIcon />

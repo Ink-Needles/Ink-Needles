@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux";
 import { Box, Button, Stepper, Step, StepLabel } from "@mui/material";
 import { Formik } from "formik";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import * as yup from "yup";
 import { shades } from "../../theme";
 import Shipping from "./Shipping";
@@ -98,6 +98,44 @@ const Checkout = () => {
   const cart = useSelector((state) => state.cart.cart);
   const isFirstStep = activeStep === 0;
   const isSecondStep = activeStep === 1;
+  const [initialFormValues, setInitialFormValues] = useState(initialValues);
+
+  useEffect(() => {
+    const fetchPersonalData = async () => {
+      const jwt = localStorage.getItem('jwt');
+      if (jwt) {
+        try {
+          const response = await fetch(URL + '/api/users/me', {
+            headers: {
+              Authorization: `Bearer ${jwt}`,
+            },
+          });
+          const account = await response.json();
+          if (account.personalData) {
+            setInitialFormValues({
+              ...initialValues,
+              billingAddress: {
+                firstName: account.personalData.firstName || "",
+                lastName: account.personalData.lastName || "",
+                country: account.personalData.country || "",
+                street1: account.personalData.streetAddress || "",
+                street2: "",
+                city: account.personalData.city || "",
+                state: "",
+                zipCode: account.personalData.zipCode || "",
+              },
+              email: account.email || "",
+              phoneNumber: account.personalData.phoneNumber || "",
+            });
+          }
+        } catch (error) {
+          console.error('Error fetching personal data:', error);
+        }
+      }
+    };
+
+    fetchPersonalData();
+  }, []);
 
   const handleFormSubmit = async (values, actions) => {
     setActiveStep(activeStep + 1);
@@ -119,7 +157,7 @@ const Checkout = () => {
 
   const makePayment = async (values) => {
     let stripe = false;
-    if(!values.cashOnDelivery) {
+    if (!values.cashOnDelivery) {
       stripe = await stripePromise;
     }
 
@@ -135,25 +173,25 @@ const Checkout = () => {
       })),
       billingInformation: values.billingAddress,
       isSameAddress: values.shippingAddress.isSameAddress,
-      shippingInformation: values.shippingAddress
+      shippingInformation: values.shippingAddress,
     };
 
     try {
       // Send request to create Stripe session on the backend
       const response = await axios.post(URL + "/api/orders", requestBody);
 
-      if(!response.data) {
+      if (!response.data) {
         return console.error("No response from the server");
       }
 
-      if(values.cashOnDelivery) {
+      if (values.cashOnDelivery) {
         return document.location.href = "/checkout/success";
       }
 
-      if(!response.data.id) {
+      if (!response.data.id) {
         return console.error("Invalid response from the server");
       }
-      
+
       const session = await response.data;
 
       // Redirect to Stripe for payment
@@ -178,8 +216,9 @@ const Checkout = () => {
       <Box>
         <Formik
           onSubmit={handleFormSubmit}
-          initialValues={initialValues}
+          initialValues={initialFormValues}
           validationSchema={checkoutSchema[activeStep]}
+          enableReinitialize
         >
           {({
             values,

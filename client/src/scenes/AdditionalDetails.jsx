@@ -12,7 +12,8 @@ const AdditionalDetails = () => {
     country: '',
     streetAddress: '',
     city: '',
-    zipCode: ''
+    zipCode: '',
+    phoneNumber: ''
   });
 
   const navigate = useNavigate();
@@ -103,7 +104,7 @@ const AdditionalDetails = () => {
             name="city"
             value={formData.city}
             onChange={handleChange}
-            sx={{ gridColumn: "span 1" }}
+            sx={{ gridColumn: "span 2" }}
           />
           <TextField
             fullWidth
@@ -112,7 +113,16 @@ const AdditionalDetails = () => {
             name="zipCode"
             value={formData.zipCode}
             onChange={handleChange}
-            sx={{ gridColumn: "span 1" }}
+            sx={{ gridColumn: "span 2" }}
+          />
+          <TextField
+            fullWidth
+            type="text"
+            label="Phone Number"
+            name="phoneNumber"
+            value={formData.phoneNumber}
+            onChange={handleChange}
+            sx={{ gridColumn: "span 2" }}
           />
         </Box>
         <Button
