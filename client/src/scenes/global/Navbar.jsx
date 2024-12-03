@@ -12,7 +12,7 @@ import { shades } from "../../theme";
 import { setIsCartOpen } from "../../state";
 import { useState } from "react";
 import { GoogleOAuthProvider, GoogleLogin } from '@react-oauth/google';
-import { decode as jwtDecode } from 'jwt-decode';
+import { jwtDecode } from 'jwt-decode';
 
 const URL = process.env.REACT_APP_BACKEND_URL || "http://localhost:1337";
 
