@@ -12,7 +12,7 @@ import { shades } from "../../theme";
 import { setIsCartOpen } from "../../state";
 import { useState } from "react";
 import { GoogleOAuthProvider, GoogleLogin } from '@react-oauth/google';
-import jwt_decode from 'jwt-decode';
+import { decode as jwtDecode } from 'jwt-decode';
 
 const URL = process.env.REACT_APP_BACKEND_URL || "http://localhost:1337";
 
@@ -79,7 +79,7 @@ const Navbar = ({account}) => {
   };
   
   const handleGoogleLoginSuccess = (response) => {
-    const decodedToken = jwt_decode(response.credential);
+    const decodedToken = jwtDecode(response.credential);
     const googleEmail = decodedToken.email;
 
     console.log('Google login success:', decodedToken);
