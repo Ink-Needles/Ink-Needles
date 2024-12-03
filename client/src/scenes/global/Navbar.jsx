@@ -37,10 +37,10 @@ const Navbar = ({account}) => {
       const loginResponse = await fetch(URL+'/api/auth/local', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
+        body: {
           identifier: email,
           password: password,
-        }),
+        },
       });
   
       const loginData = await loginResponse.json();
@@ -89,10 +89,10 @@ const Navbar = ({account}) => {
       const loginResponse = await fetch(URL+'/api/auth/local', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
+        body: {
           identifier: googleEmail,
           password: googleUserId,
-        }),
+        },
       });
   
       const loginData = await loginResponse.json();
