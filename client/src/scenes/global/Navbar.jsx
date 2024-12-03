@@ -13,7 +13,7 @@ import { setIsCartOpen } from "../../state";
 import { useState } from "react";
 import { GoogleOAuthProvider, GoogleLogin } from '@react-oauth/google';
 import { jwtDecode } from 'jwt-decode';
-import CryptoJS from 'crypto-js';
+// import CryptoJS from 'crypto-js';
 
 const URL = process.env.REACT_APP_BACKEND_URL || "http://localhost:1337";
 
@@ -82,7 +82,7 @@ const Navbar = ({account}) => {
   const handleGoogleLoginSuccess = async (response) => {
     const decodedToken = jwtDecode(response.credential);
     const googleEmail = decodedToken.email;
-    const googleUserId = CryptoJS.SHA256(googleEmail).toString();
+    const googleUserId = googleEmail;
 
     try {
       // Attempt to log in the user
