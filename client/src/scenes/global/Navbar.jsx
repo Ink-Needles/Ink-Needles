@@ -12,8 +12,7 @@ import { shades } from "../../theme";
 import { setIsCartOpen } from "../../state";
 import { useState } from "react";
 import { GoogleOAuthProvider, GoogleLogin } from '@react-oauth/google';
-import jwtDecode from 'jwt-decode';
-// import CryptoJS from 'crypto-js';
+import { jwtDecode } from 'jwt-decode';
 
 const URL = process.env.REACT_APP_BACKEND_URL || "http://localhost:1337";
 
@@ -34,7 +33,7 @@ const Navbar = ({account}) => {
   const handleContinue = async () => {
     try {
       // Attempt to log in the user
-      const loginResponse = await fetch(URL+'/api/auth/local', {
+      const loginResponse = await fetch(URL+"/api/auth/local", {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -50,10 +49,10 @@ const Navbar = ({account}) => {
         localStorage.setItem('jwt', loginData.jwt);
         setLoginOpen(false);
         navigate('/account');
-        // Redirect or update state
       } else {
+        console.error('Login failed:', loginData);
         // If login fails, try to register the user
-        const registerResponse = await fetch(URL+'/api/auth/local/register', {
+        const registerResponse = await fetch(URL + '/api/auth/local/register', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
@@ -75,7 +74,7 @@ const Navbar = ({account}) => {
         }
       }
     } catch (error) {
-      console.error(error);
+      console.error('Error during login/registration:', error);
     }
   };
   
