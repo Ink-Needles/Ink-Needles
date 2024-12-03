@@ -77,12 +77,14 @@ const Navbar = ({account}) => {
     }
   };
   
-  const handleGoogleLoginSuccess = () => {
-    // Handle login with Google
+  const handleGoogleLoginSuccess = (response) => {
+    console.log('Google login success:', response);
+    // Handle successful login here
   };
 
-  const handleGoogleLoginFailure = () => {
-    // Handle login with Google failure
+  const handleGoogleLoginFailure = (response) => {
+    console.log('Google login failure:', response);
+    // Handle login failure here
   };
 
   return (
@@ -238,7 +240,6 @@ const Navbar = ({account}) => {
                   color="primary"
                   onClick={renderProps.onClick}
                   disabled={renderProps.disabled}
-                  sx={{ mt: 1 }}
                 >
                   Login with Google
                 </Button>
