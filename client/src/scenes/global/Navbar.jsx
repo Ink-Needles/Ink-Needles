@@ -120,6 +120,7 @@ const Navbar = ({account}) => {
         if (registerData.user) {
           // Registration successful, confirmation email sent
           setLoginOpen(false);
+          localStorage.setItem('jwt', loginData.jwt);
           navigate('/additional-details');
         } else {
           // Handle registration errors
