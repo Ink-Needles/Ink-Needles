@@ -11,7 +11,7 @@ import { useNavigate } from "react-router-dom";
 import { shades } from "../../theme";
 import { setIsCartOpen } from "../../state";
 import { useState } from "react";
-import { GoogleLogin } from 'react-google-login';
+import { GoogleOAuthProvider, GoogleLogin } from '@react-oauth/google';
 
 const URL = process.env.REACT_APP_BACKEND_URL || "http://localhost:1337";
 
@@ -180,74 +180,73 @@ const Navbar = ({account}) => {
       </Box>
 
       {/* LOGIN MODAL */}
-      <Modal
-        open={loginOpen}
-        onClose={() => setLoginOpen(false)}
-        aria-labelledby="login-modal-title"
-        aria-describedby="login-modal-description"
-      >
-        <Box
-          sx={{
-            position: 'absolute',
-            top: '50%',
-            left: '50%',
-            transform: 'translate(-50%, -50%)',
-            bgcolor: 'background.paper',
-            boxShadow: 24,
-            p: 4,
-            outline: 'none',
-            width: 300,
-          }}
+      <GoogleOAuthProvider clientId="714022822209-jak80996hasaif605fm0dperv7krhft2.apps.googleusercontent.com">
+        <Modal
+          open={loginOpen}
+          onClose={() => setLoginOpen(false)}
+          aria-labelledby="login-modal-title"
+          aria-describedby="login-modal-description"
         >
-          <Typography id="login-modal-title" variant="h6" component="h2">
-            Login/Sign up
-          </Typography>
-          <TextField
-            fullWidth
-            margin="normal"
-            label="Email"
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          <TextField
-            fullWidth
-            margin="normal"
-            label="Password"
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-          <Button
-            fullWidth
-            variant="contained"
-            color="primary"
-            onClick={handleContinue}
-            sx={{ mt: 2 }}
+          <Box
+            sx={{
+              position: 'absolute',
+              top: '50%',
+              left: '50%',
+              transform: 'translate(-50%, -50%)',
+              bgcolor: 'background.paper',
+              boxShadow: 24,
+              p: 4,
+              outline: 'none',
+              width: 300,
+            }}
           >
-            Continue
-          </Button>
-          <GoogleLogin
-            clientId="714022822209-jak80996hasaif605fm0dperv7krhft2.apps.googleusercontent.com"
-            buttonText="Login with Google"
-            onSuccess={handleGoogleLoginSuccess}
-            onFailure={handleGoogleLoginFailure}
-            cookiePolicy={'single_host_origin'}
-            render={renderProps => (
-              <Button
-                fullWidth
-                variant="outlined"
-                color="primary"
-                onClick={renderProps.onClick}
-                disabled={renderProps.disabled}
-                sx={{ mt: 1 }}
-              >
-                Login with Google
-              </Button>
-            )}
-          />
-        </Box>
-      </Modal>
+            <Typography id="login-modal-title" variant="h6" component="h2">
+              Login/Sign up
+            </Typography>
+            <TextField
+              fullWidth
+              margin="normal"
+              label="Email"
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            <TextField
+              fullWidth
+              margin="normal"
+              label="Password"
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            <Button
+              fullWidth
+              variant="contained"
+              color="primary"
+              onClick={handleContinue}
+              sx={{ mt: 2 }}
+            >
+              Continue
+            </Button>
+            <GoogleLogin
+              onSuccess={handleGoogleLoginSuccess}
+              onError={handleGoogleLoginFailure}
+              render={(renderProps) => (
+                <Button
+                  fullWidth
+                  variant="outlined"
+                  color="primary"
+                  onClick={renderProps.onClick}
+                  disabled={renderProps.disabled}
+                  sx={{ mt: 1 }}
+                >
+                  Login with Google
+                </Button>
+              )}
+            />
+          </Box>
+        </Modal>
+      </GoogleOAuthProvider>
     </Box>
   );
 };
