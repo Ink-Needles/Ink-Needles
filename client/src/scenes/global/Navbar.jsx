@@ -11,6 +11,7 @@ import { useNavigate } from "react-router-dom";
 import { shades } from "../../theme";
 import { setIsCartOpen } from "../../state";
 import { useState } from "react";
+import { GoogleLogin } from 'react-google-login';
 
 const URL = process.env.REACT_APP_BACKEND_URL || "http://localhost:1337";
 
@@ -76,8 +77,12 @@ const Navbar = ({account}) => {
     }
   };
   
-  const handleGoogleLogin = () => {
+  const handleGoogleLoginSuccess = () => {
     // Handle login with Google
+  };
+
+  const handleGoogleLoginFailure = () => {
+    // Handle login with Google failure
   };
 
   return (
@@ -222,15 +227,25 @@ const Navbar = ({account}) => {
           >
             Continue
           </Button>
-          <Button
-            fullWidth
-            variant="outlined"
-            color="primary"
-            onClick={handleGoogleLogin}
-            sx={{ mt: 1 }}
-          >
-            Login with Google
-          </Button>
+          <GoogleLogin
+            clientId="714022822209-jak80996hasaif605fm0dperv7krhft2.apps.googleusercontent.com"
+            buttonText="Login with Google"
+            onSuccess={handleGoogleLoginSuccess}
+            onFailure={handleGoogleLoginFailure}
+            cookiePolicy={'single_host_origin'}
+            render={renderProps => (
+              <Button
+                fullWidth
+                variant="outlined"
+                color="primary"
+                onClick={renderProps.onClick}
+                disabled={renderProps.disabled}
+                sx={{ mt: 1 }}
+              >
+                Login with Google
+              </Button>
+            )}
+          />
         </Box>
       </Modal>
     </Box>
