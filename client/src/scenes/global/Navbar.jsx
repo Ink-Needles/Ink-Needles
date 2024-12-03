@@ -78,12 +78,57 @@ const Navbar = ({account}) => {
     }
   };
   
-  const handleGoogleLoginSuccess = (response) => {
+  const handleGoogleLoginSuccess = async (response) => {
     const decodedToken = jwtDecode(response.credential);
     const googleEmail = decodedToken.email;
+    const googleUserId = decodedToken.sub;
 
-    console.log('Google login success:', decodedToken);
-    console.log('Email:', googleEmail);
+    try {
+      // Attempt to log in the user
+      const loginResponse = await fetch(URL+'/api/auth/local', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          identifier: googleEmail,
+          password: googleUserId,
+        }),
+      });
+  
+      const loginData = await loginResponse.json();
+  
+      if (loginData.jwt) {
+        // Login successful
+        localStorage.setItem('jwt', loginData.jwt);
+        setLoginOpen(false);
+        navigate('/account');
+        // Redirect or update state
+      } else {
+        // If login fails, try to register the user
+        const registerResponse = await fetch(URL+'/api/auth/local/register', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            username: googleEmail,
+            email: googleEmail,
+            password: googleUserId,
+            google: true,
+          }),
+        });
+  
+        const registerData = await registerResponse.json();
+  
+        if (registerData.user) {
+          // Registration successful, confirmation email sent
+          setLoginOpen(false);
+          navigate('/additional-details');
+        } else {
+          // Handle registration errors
+          alert('An error occurred during registration.');
+        }
+      }
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   const handleGoogleLoginFailure = (response) => {
@@ -245,7 +290,7 @@ const Navbar = ({account}) => {
                   onClick={renderProps.onClick}
                   disabled={renderProps.disabled}
                 >
-                  Login with Google
+                  Continue with Google
                 </Button>
               )}
             />
