@@ -25,12 +25,14 @@ const Navbar = ({account}) => {
   const [loginOpen, setLoginOpen] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [loginError, setLoginError] = useState('');
 
   const handleSearch = () => {
     navigate(`/search?text=${searchText}`);
   };
 
   const handleContinue = async () => {
+    setLoginError('');
     try {
       // Attempt to log in the user
       const loginResponse = await fetch(URL+"/api/auth/local", {
@@ -43,6 +45,11 @@ const Navbar = ({account}) => {
       });
   
       const loginData = await loginResponse.json();
+
+      if (loginResponse?.status === 400) {
+        console.log(loginData);
+        return setLoginError(loginData.error?.message);
+      }
   
       if (loginData.jwt) {
         // Login successful
@@ -79,6 +86,7 @@ const Navbar = ({account}) => {
   };
   
   const handleGoogleLoginSuccess = async (response) => {
+    setLoginError('');
     const decodedToken = jwtDecode(response.credential);
     const googleEmail = decodedToken.email;
     const googleUserId = googleEmail;
@@ -95,6 +103,10 @@ const Navbar = ({account}) => {
       });
   
       const loginData = await loginResponse.json();
+
+      if (loginResponse.status === 400) {
+        return setLoginError(loginResponse.error?.message);
+      }
   
       if (loginData.jwt) {
         // Login successful
@@ -271,6 +283,11 @@ const Navbar = ({account}) => {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
+            {loginError && (
+              <Typography color="error" variant="body2">
+                {loginError}
+              </Typography>
+            )}
             <Button
               fullWidth
               variant="contained"
