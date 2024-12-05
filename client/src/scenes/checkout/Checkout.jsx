@@ -12,7 +12,7 @@ import axios from "axios";
 const URL = process.env.REACT_APP_BACKEND_URL || "http://localhost:1337";
 
 const stripePromise = loadStripe(
-  "pk_test_51PtfRG06QBDFn9Ds6egUwsJv8itzbNlutm82tTYYMta67tfIR19zv5V9tpUXvefC0dZxHmwxewZ6izdps5BxSRw400NpbEdW76"
+  "pk_test_51QSmJFLtioHjd9uRU16PBOoerYLHpQUurPJ7WtFYglu826aPOYYLn06xU0I16k7DQi0yAM5IfKZfHyVw3VUIwebg003ZxMXKm6"
 );
 
 const initialValues = {
