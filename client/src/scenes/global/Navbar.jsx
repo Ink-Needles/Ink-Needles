@@ -55,7 +55,7 @@ const Navbar = ({account}) => {
         // Login successful
         localStorage.setItem('jwt', loginData.jwt);
         setLoginOpen(false);
-        navigate('/account');
+        window.location.href = '/account';
       } else {
         console.error('Login failed:', loginData);
         // If login fails, try to register the user
@@ -112,7 +112,7 @@ const Navbar = ({account}) => {
         // Login successful
         localStorage.setItem('jwt', loginData.jwt);
         setLoginOpen(false);
-        navigate('/account');
+        window.location.href = '/account';
         // Redirect or update state
       } else {
         // If login fails, try to register the user

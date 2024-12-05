@@ -30,7 +30,7 @@ const AdditionalDetails = () => {
     e.preventDefault();
     const jwt = localStorage.getItem('jwt');
     if (!jwt) {
-      return navigate('/');
+      return window.location.href = '/';
     }
 
     try {
@@ -45,7 +45,7 @@ const AdditionalDetails = () => {
       );
 
       if (response.status === 200) {
-        navigate('/account');
+        window.location.href = '/account';
       } else {
         console.error('Error submitting additional details:', response);
       }
