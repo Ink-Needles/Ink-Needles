@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Box, Button, TextField, Typography } from "@mui/material";
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 const URL = process.env.REACT_APP_BACKEND_URL || 'http://localhost:1337';
@@ -16,7 +16,7 @@ const AdditionalDetails = () => {
     phoneNumber: ''
   });
 
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
