@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Box, Typography, Tab, Tabs, useMediaQuery, Select, MenuItem } from "@mui/material";
+import { Box, Typography, Tab, Tabs, useMediaQuery, Select, MenuItem, Checkbox, ListItemText } from "@mui/material";
 import Item from "../../components/Item";
 import { setItems } from "../../state";
 import axios from "axios";
@@ -13,15 +13,36 @@ const ShoppingList = () => {
   const dispatch = useDispatch();
   const [value, setValue] = useState("home");
   const [filter, setFilter] = useState("default");
+  const [selectedBrands, setSelectedBrands] = useState([]);
   const items = useSelector((state) => state.cart.items);
-  const isNonMobile = useMediaQuery("(min-width:600px)");
+  const isNonMobile = useMediaQuery("(min-width:1400px)");
+  const [brands, setBrands] = useState({
+    Machines: ["AVA", "Critical", "DKlab", "Equaliser", "EQUALISER FOX BIG V2", "EQUALISER FOX MINI V3", "EZ", "EZ P3 Pro Turbo", "FONE", "Hawink", "INOX PRIME", "Pen", "ProLine", "Tattoo Machines", "Tattooing Machines", "UNISTAR UNIGRIP", "VEX", "Wireless Pen", "X-Strike"],
+    CartridgeNeedles: ["Arena Cartridges", "AVA", "Ball Point", "Cartridge Needles", "CNC Police", "Dragonhawk", "EMALLA", "Kwadron", "KWADRON PMU", "MAST Pro", "ProLine", "WJX ULTRA"],
+    Consumables: ["Adhesive Tape", "AVA", "BioTaTum", "Container for medical waste", "COSCO", "Demineralized Water", "Disposable mats", "Disposable shoe covers", "Doodler", "Dual Tip Permanent Skin Pen", "Dynamic Soft", "Elastic Band", "EZ", "Glovcon", "Green Soap", "Grumme Grönsåpa", "Ink Caps", "Kwadron", "Markers", "Mega Magnums Silicone Ink Cup", "Mixing Solution", "Nitrile gloves", "Paint Palette", "Pen Cap", "Pen Machine Bags", "Pen Machine Sleeve Box", "Premium Ink", "Printer Ink", "ProLine", "Protective Film Sheets", "PUNK", "Sharpie", "Silicone Ink Cups", "SKULLDNA", "SPIRIT", "Stencil", "Tattoo Hyginen Supplies", "Tattoo Ink", "Tattoo practice skin", "Tattoo Razor", "Tattoo Skin Pen", "Tattoo Stencil", "Tattoo Supplies", "Tattoo Transfer Paper", "Tattooing Soap", "Thermal Transfer Paper", "Transparent Transfer Film", "UNIGLOVES", "UNISTAR", "Wooden Spatulas", "XTREME", "Zebili", ],
+    Equipment: ["Armrest", "AVA", "Bottle", "Equipment Case", "Headlamp", "Ink Mixer", "Ink Storage Case", "Kwadron", "MAST", "Professional Photography Light", "ProLine", "SKULLDNA", "Smart Wireless Printer", "Spray Bottle", "Stand for Pen Machines", "Tattoo Bag", "Tattoo Ink Stand", "Thermal Printer"],
+    Paints: ["BioTaTum", "Dynamic Color", "Eclipse Tattoo Ink", "Ink Mixer", "Inks", "Kwadron", "Limitless", "Mixing Solution", "PANTHERA", "Soul Ink International", "Tattoo Ink", "Tattooing Inks", "XTREME"],
+    SkinCare: ["Absorbent Skin Bandage", "AVA", "Cream", "Derm Defender", "Derm protect film", "EMALLA", "EZ", "Five-Star", "Helosan", "INKTROX", "LOLLIFOAM", "Pain Relief Spray", "Post Laser Cream", "Protection Film", "Protective Film Sheets", "Rapid Repair Cream", "RED STOP", "Repairing Film", "Skin Care Film Roll", "SKULLDNA", "Tattoo Aftercare", "Tattoo Care", "Tattoo Hygiene Supplies", "Tattoo Spray Anesthetic", "Tattooing Soap", "UNISTAR"],
+    WorkingOintments: ["BioTaTum", "EZ", "PANTHERA", "PROTON", "Stencil", "Stencil Master", "Tattoo Aftercare", "Tattoo Stencil", "Tattoo Stencil Eraser", "Tattoo Supplies", "UNISTAR"],
+    PMU: ["Cartridge Needles", "Dragonhawk", "KWADRON PMU", "MAST Pro", "PMU", "Tattoo Machines", "Tattooing Machines", "Wireless Pen"]
+  });
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
+    setSelectedBrands([]);
   };
 
   const handleFilterChange = (event) => {
     setFilter(event.target.value);
+  };
+
+  const handleBrandChange = (event) => {
+    const {
+      target: { value },
+    } = event;
+    setSelectedBrands(
+      typeof value === 'string' ? value.split(',') : value,
+    );
   };
 
   const getItems = async () => {
@@ -36,6 +57,11 @@ const ShoppingList = () => {
   useEffect(() => {
     getItems();
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+  const filterItemsByBrand = (items) => {
+    if (selectedBrands.length === 0) return items;
+    return items.filter((item) => selectedBrands.includes(item.attributes.brand));
+  };
 
   const MachinesItems = items.filter(
     (item) => item.attributes.category === "Machines"
@@ -72,6 +98,29 @@ const ShoppingList = () => {
     return itemsCopy;
   };
 
+  const getCurrentBrands = () => {
+    switch (value) {
+      case "Machines":
+        return brands.Machines;
+      case "Cartridge needles":
+        return brands.CartridgeNeedles;
+      case "Consumables":
+        return brands.Consumables;
+      case "Equipment":
+        return brands.Equipment;
+      case "Paints":
+        return brands.Paints;
+      case "Skin care":
+        return brands.SkinCare;
+      case "Working ointments":
+        return brands.WorkingOintments;
+      case "PMU":
+        return brands.PMU;
+      default:
+        return [];
+    }
+  };
+
   return (
     <Box width="80%" margin="80px auto">
       <Typography variant="h3" textAlign="center">
@@ -103,11 +152,25 @@ const ShoppingList = () => {
         <Tab label="Contacts" value="Contacts" />
       </Tabs>
       {value !== "home" && value !== "Contacts" && 
-        <Box display="flex" justifyContent="flex-end" mb={2}>
+        <Box display="flex" justifyContent="flex-end" gap="10px" mb={2}>
           <Select value={filter} onChange={handleFilterChange}>
             <MenuItem value="default">Default</MenuItem>
             <MenuItem value="priceLowToHigh">Price: Low to High</MenuItem>
             <MenuItem value="priceHighToLow">Price: High to Low</MenuItem>
+          </Select>
+          <Select
+            multiple
+            value={selectedBrands}
+            defaultValue="Other filters"
+            onChange={handleBrandChange}
+            renderValue={(selected) => selected.join(', ')}
+          >
+            {getCurrentBrands().map((brand) => (
+              <MenuItem key={brand} value={brand}>
+                <Checkbox checked={selectedBrands.indexOf(brand) > -1} />
+                <ListItemText primary={brand} />
+              </MenuItem>
+            ))}
           </Select>
         </Box>
       }
@@ -125,35 +188,35 @@ const ShoppingList = () => {
           <Contacts />
         }
         {value === "Machines" &&
-          sortItems(MachinesItems).map((item) => (
+          sortItems(filterItemsByBrand(MachinesItems)).map((item) => (
             <Item item={item} key={`${item.name}-${item.id}`} />
           ))}
         {value === "Cartridge needles" &&
-          sortItems(CartridgeNeedlesItems).map((item) => (
+          sortItems(filterItemsByBrand(CartridgeNeedlesItems)).map((item) => (
             <Item item={item} key={`${item.name}-${item.id}`} />
           ))}
         {value === "Consumables" &&
-          sortItems(ConsumablesItems).map((item) => (
+          sortItems(filterItemsByBrand(ConsumablesItems)).map((item) => (
             <Item item={item} key={`${item.name}-${item.id}`} />
           ))}
         {value === "Equipment" &&
-          sortItems(EquipmentItems).map((item) => (
+          sortItems(filterItemsByBrand(EquipmentItems)).map((item) => (
             <Item item={item} key={`${item.name}-${item.id}`} />
           ))}
         {value === "Paints" &&
-          sortItems(PaintsItems).map((item) => (
+          sortItems(filterItemsByBrand(PaintsItems)).map((item) => (
             <Item item={item} key={`${item.name}-${item.id}`} />
           ))}
         {value === "Skin care" &&
-          sortItems(SkinCareItems).map((item) => (
+          sortItems(filterItemsByBrand(SkinCareItems)).map((item) => (
             <Item item={item} key={`${item.name}-${item.id}`} />
           ))}
         {value === "Working ointments" &&
-          sortItems(WorkingOintmentsItems).map((item) => (
+          sortItems(filterItemsByBrand(WorkingOintmentsItems)).map((item) => (
             <Item item={item} key={`${item.name}-${item.id}`} />
           ))}
         {value === "PMU" &&
-          sortItems(PMUItems).map((item) => (
+          sortItems(filterItemsByBrand(PMUItems)).map((item) => (
             <Item item={item} key={`${item.name}-${item.id}`} />
           ))}
       </Box>
