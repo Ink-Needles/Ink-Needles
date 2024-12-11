@@ -161,9 +161,9 @@ const ShoppingList = () => {
           <Select
             multiple
             value={selectedBrands}
-            defaultValue="Other filters"
             onChange={handleBrandChange}
-            renderValue={(selected) => selected.join(', ')}
+            displayEmpty
+            renderValue={(selected) => selected.length === 0 ? 'Other filters' : selected.join(', ')}
           >
             {getCurrentBrands().map((brand) => (
               <MenuItem key={brand} value={brand}>
