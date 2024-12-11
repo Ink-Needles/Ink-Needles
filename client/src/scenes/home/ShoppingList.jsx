@@ -4,12 +4,14 @@ import { Box, Typography, Tab, Tabs, useMediaQuery, Select, MenuItem } from "@mu
 import Item from "../../components/Item";
 import { setItems } from "../../state";
 import axios from "axios";
+import WelcomePage from "./WelcomePage";
+import Contacts from "./Contacts";
 
 const URL = process.env.REACT_APP_BACKEND_URL || "http://localhost:1337";
 
 const ShoppingList = () => {
   const dispatch = useDispatch();
-  const [value, setValue] = useState("all");
+  const [value, setValue] = useState("home");
   const [filter, setFilter] = useState("default");
   const items = useSelector((state) => state.cart.items);
   const isNonMobile = useMediaQuery("(min-width:600px)");
@@ -35,14 +37,29 @@ const ShoppingList = () => {
     getItems();
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-  const topRatedItems = items.filter(
-    (item) => item.attributes.category === "topRated"
+  const MachinesItems = items.filter(
+    (item) => item.attributes.category === "Machines"
   );
-  const newArrivalsItems = items.filter(
-    (item) => item.attributes.category === "newArrivals"
+  const CartridgeNeedlesItems = items.filter(
+    (item) => item.attributes.category === "Cartridge needles"
   );
-  const bestSellersItems = items.filter(
-    (item) => item.attributes.category === "bestSellers"
+  const ConsumablesItems = items.filter(
+    (item) => item.attributes.category === "Consumables"
+  );
+  const EquipmentItems = items.filter(
+    (item) => item.attributes.category === "Equipment"
+  );
+  const PaintsItems = items.filter(
+    (item) => item.attributes.category === "Paints"
+  );
+  const SkinCareItems = items.filter(
+    (item) => item.attributes.category === "Skin care"
+  );
+  const WorkingOintmentsItems = items.filter(
+    (item) => item.attributes.category === "Working ointments"
+  );
+  const PMUItems = items.filter(
+    (item) => item.attributes.category === "PMU"
   );
 
   const sortItems = (items) => {
@@ -74,18 +91,26 @@ const ShoppingList = () => {
           },
         }}
       >
-        <Tab label="ALL" value="all" />
-        <Tab label="NEW ARRIVALS" value="newArrivals" />
-        <Tab label="BEST SELLERS" value="bestSellers" />
-        <Tab label="TOP RATED" value="topRated" />
+        <Tab label="Home" value="home" />
+        <Tab label="Machines" value="Machines" />
+        <Tab label="Cartridge needles" value="Cartridge needles" />
+        <Tab label="Consumables" value="Consumables" />
+        <Tab label="Equipment" value="Equipment" />
+        <Tab label="Paints" value="Paints" />
+        <Tab label="Skin care" value="Skin care" />
+        <Tab label="Working ointments" value="Working ointments" />
+        <Tab label="PMU" value="PMU" />
+        <Tab label="Contacts" value="Contacts" />
       </Tabs>
-      <Box display="flex" justifyContent="flex-end" mb={2}>
-        <Select value={filter} onChange={handleFilterChange}>
-          <MenuItem value="default">Default</MenuItem>
-          <MenuItem value="priceLowToHigh">Price: Low to High</MenuItem>
-          <MenuItem value="priceHighToLow">Price: High to Low</MenuItem>
-        </Select>
-      </Box>
+      {value !== "home" && value !== "Contacts" && 
+        <Box display="flex" justifyContent="flex-end" mb={2}>
+          <Select value={filter} onChange={handleFilterChange}>
+            <MenuItem value="default">Default</MenuItem>
+            <MenuItem value="priceLowToHigh">Price: Low to High</MenuItem>
+            <MenuItem value="priceHighToLow">Price: High to Low</MenuItem>
+          </Select>
+        </Box>
+      }
       <Box
         margin="0 auto"
         display="grid"
@@ -94,20 +119,41 @@ const ShoppingList = () => {
         rowGap="20px"
         columnGap="1.33%"
       >
-        {value === "all" &&
-          sortItems(items).map((item) => (
+        {value === "home" &&
+          <WelcomePage />
+        } {value === "Contacts" &&
+          <Contacts />
+        }
+        {value === "Machines" &&
+          sortItems(MachinesItems).map((item) => (
             <Item item={item} key={`${item.name}-${item.id}`} />
           ))}
-        {value === "newArrivals" &&
-          sortItems(newArrivalsItems).map((item) => (
+        {value === "Cartridge needles" &&
+          sortItems(CartridgeNeedlesItems).map((item) => (
             <Item item={item} key={`${item.name}-${item.id}`} />
           ))}
-        {value === "bestSellers" &&
-          sortItems(bestSellersItems).map((item) => (
+        {value === "Consumables" &&
+          sortItems(ConsumablesItems).map((item) => (
             <Item item={item} key={`${item.name}-${item.id}`} />
           ))}
-        {value === "topRated" &&
-          sortItems(topRatedItems).map((item) => (
+        {value === "Equipment" &&
+          sortItems(EquipmentItems).map((item) => (
+            <Item item={item} key={`${item.name}-${item.id}`} />
+          ))}
+        {value === "Paints" &&
+          sortItems(PaintsItems).map((item) => (
+            <Item item={item} key={`${item.name}-${item.id}`} />
+          ))}
+        {value === "Skin care" &&
+          sortItems(SkinCareItems).map((item) => (
+            <Item item={item} key={`${item.name}-${item.id}`} />
+          ))}
+        {value === "Working ointments" &&
+          sortItems(WorkingOintmentsItems).map((item) => (
+            <Item item={item} key={`${item.name}-${item.id}`} />
+          ))}
+        {value === "PMU" &&
+          sortItems(PMUItems).map((item) => (
             <Item item={item} key={`${item.name}-${item.id}`} />
           ))}
       </Box>
