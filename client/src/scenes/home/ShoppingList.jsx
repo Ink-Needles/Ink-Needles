@@ -122,8 +122,8 @@ const ShoppingList = () => {
   };
 
   return (
-    <Box width="80%" margin="80px auto">
-      <Typography variant="h3" textAlign="center">
+    <Box width="100%" margin="0px" >
+      <Typography variant="h3" textAlign="center" sx={{ marginTop: "50px" }}> 
         Our Feature <b>Products</b>
       </Typography>
       <Tabs
@@ -137,6 +137,7 @@ const ShoppingList = () => {
           m: "25px",
           "& .MuiTabs-flexContainer": {
             flexWrap: "wrap",
+            
           },
         }}
       >
@@ -176,7 +177,7 @@ const ShoppingList = () => {
       }
       <Box
         margin="0 auto"
-        display="grid"
+        display="flex"
         gridTemplateColumns="repeat(auto-fill, 300px)"
         justifyContent="space-around"
         rowGap="20px"

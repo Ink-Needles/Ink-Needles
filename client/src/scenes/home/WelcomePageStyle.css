@@ -1,4 +1,46 @@
 .elfsight-app-aab9349d-1ec7-4630-bf00-9134953a4904.eapps-instagram-feed.es-widget a[href*="https://elfsight.com"] {
-    display: none !important;
-  }
-  
+  display: none !important;
+}	
+
+.elfsight-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden;
+}
+
+.image-first-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2px;
+  background-color: black;
+  width: 99vw;
+  height: 300px;
+  margin: 0;
+  padding: 35px 20px;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.image-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  overflow: hidden;
+  margin: 0;
+}
+
+.image {
+  width: 100%;
+  height: 80%;
+  object-fit: cover;
+  display: block;
+}

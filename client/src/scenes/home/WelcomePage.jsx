@@ -44,13 +44,30 @@ const WelcomePage = () => {
 
   return (
     <div>
-      <h1>Welcome to the store</h1>   
+      <div className="image-first-container">
+        <div className="image-box">
+          <img src="jeep1.jpg" alt="Image 1" className="image" />
+        </div>
+        <div className="image-box">
+          <img src="jeep2.jpg" alt="Image 2" className="image" />
+        </div>
+        <div className="image-box">
+          <img src="jeep3.jpg" alt="Image 3" className="image" />
+        </div>
+        <div className="image-box">
+          <img src="jeep4.jpg" alt="Image 4" className="image" />
+        </div>
+      </div>
 
-      <div
-        ref={elfsightRef}
-        className="elfsight-app-aab9349d-1ec7-4630-bf00-9134953a4904"
-        data-elfsight-app-lazy
-      ></div>
+      <h1>Welcome to the store</h1>
+
+      <div className="elfsight-container">
+        <div
+          ref={elfsightRef}
+          className="elfsight-app-aab9349d-1ec7-4630-bf00-9134953a4904"
+          data-elfsight-app-lazy
+        ></div>
+      </div>
     </div>
   );
 };
