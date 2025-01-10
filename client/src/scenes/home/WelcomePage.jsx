@@ -44,6 +44,25 @@ const WelcomePage = () => {
 
   return (
     <div>
+      <div className="quality-text">
+        <h1>
+          Издигнахме стандарта за качество – и продължаваме да го надминаваме
+        </h1>
+        <p>
+          След години на усъвършенстване и стремеж към безкомпромисно качество,
+          започнахме с едно изключително изделие, което спечели доверието на
+          професионалисти.
+        </p>
+        <p>
+          Днес нашата селекция от висококачествени продукти обединява най-доброто
+          за всеки, който цени прецизността и резултатите.
+        </p>
+        <p>
+          Всеки артикул е внимателно подбран, за да отговори на нуждите на
+          най-взискателните професионалисти в индустрията.
+        </p>
+      </div>
+
       <div className="image-first-container">
         <div className="image-box">
           <img src="jeep1.jpg" alt="Image 1" className="image" />
@@ -59,7 +78,42 @@ const WelcomePage = () => {
         </div>
       </div>
 
-      <h1>Welcome to the store</h1>
+      <h1 className='title1'>
+        Любими продукти на <br />професионалистите
+      </h1>
+
+      <div className="large-container">
+        <div className="section">
+          <div className="section-image">
+            <img src="jeep1.jpg" alt="Large Image 1" />
+          </div>
+          <div className="section-text">
+            <p>Текст за секция 1. Това е описание на продукт или услуга.</p>
+            <button className="learn-more-btn">Научете повече</button>
+          </div>
+        </div>
+
+        <div className="section reverse">
+          <div className="section-text">
+            <p>Текст за секция 2. Това е описание на продукт или услуга.</p>
+            <button className="learn-more-btn">Научете повече</button>
+          </div>
+          <div className="section-image">
+            <img src="jeep2.jpg" alt="Large Image 2" />
+          </div>
+        </div>
+
+        <div className="section">
+          <div className="section-image">
+            <img src="jeep3.jpg" alt="Large Image 3" />
+          </div>
+          <div className="section-text">
+            <p>Текст за секция 3. Това е описание на продукт или услуга.</p>
+            <button className="learn-more-btn">Научете повече</button>
+          </div>
+        </div>
+      </div>
+
 
       <div className="elfsight-container">
         <div
