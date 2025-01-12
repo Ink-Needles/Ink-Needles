@@ -1,7 +1,10 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import './WelcomePageStyle.css';
 
 const WelcomePage = () => {
+
+  
+
   const elfsightRef = useRef(null);
 
   useEffect(() => {
@@ -41,6 +44,8 @@ const WelcomePage = () => {
       observer.disconnect();
     };
   }, []);
+
+  
 
   return (
     <div>
@@ -88,14 +93,16 @@ const WelcomePage = () => {
             <img src="jeep1.jpg" alt="Large Image 1" />
           </div>
           <div className="section-text">
-            <p>Текст за секция 1. Това е описание на продукт или услуга.</p>
+          <h1 className="section-title2">Открийте DKlab</h1>
+            <p>Tатуировъчната машина, която съчетава мощност, прецизност и комфорт в един компактен и стилен дизайн! С включени батерии и RCA адаптор, тя е готова да отговори на всички ваши нужди за дълготрайни и перфектни татуировки.</p>
             <button className="learn-more-btn">Научете повече</button>
           </div>
         </div>
 
         <div className="section reverse">
           <div className="section-text">
-            <p>Текст за секция 2. Това е описание на продукт или услуга.</p>
+          <h1 className="section-title2">DK-W1 PRO</h1>
+            <p>Безжичната машина за татуиране, която съчетава мощност и удобство! С 3 различни ръкохватки, две батерии и регулируем ход, тя осигурява перфектен контрол и прецизност. Насладете се на надеждност и иновация с DK-W1 Pro – идеалният избор за професионалисти!</p>
             <button className="learn-more-btn">Научете повече</button>
           </div>
           <div className="section-image">
@@ -108,12 +115,98 @@ const WelcomePage = () => {
             <img src="jeep3.jpg" alt="Large Image 3" />
           </div>
           <div className="section-text">
-            <p>Текст за секция 3. Това е описание на продукт или услуга.</p>
+          <h1 className="section-title2">Открийте EZ P3 Pro</h1>
+            <p>Безжичната машина за татуиране, която комбинира иновация, мощност и прецизност! С регулируем ход, Bluetooth свързаност и здрава конструкция, тя е идеалният избор за татуисти, които искат да издигнат своето творчество на ново ниво. Изберете P3 Pro за комфорт и качество при всяка сесия.</p>
             <button className="learn-more-btn">Научете повече</button>
           </div>
         </div>
       </div>
 
+      <div className="image-second-container">
+        <h1 className='image-second-container-title'>Вижте нашите предложения за:</h1>
+        <div className="image-box2">
+          <img src="jeep1.jpg" alt="Image 1" className="image2" />
+        </div>
+        <div className="image-box2">
+          <img src="jeep2.jpg" alt="Image 2" className="image2" />
+        </div>
+        <div className="image-box2">
+          <img src="jeep3.jpg" alt="Image 3" className="image2" />
+        </div>
+        <div className="image-box2">
+          <img src="jeep4.jpg" alt="Image 4" className="image2" />
+        </div>
+      </div>
+
+      <div className="large-container2">
+        <div className="section reverse 2">
+          <div className="section-text-reverse2">
+          <h1 className="section-title2">EMALLA Cartridges</h1>
+            <p>Експлозивно качество за съвършени татуировки – EMALLA картридж игли! Изработени с прецизност и иновация, те предлагат безкомпромисен контрол и комфорт. Изберете безопасност и ефективност за вашето творчество!</p>
+            <button className="learn-more-btn">Научете повече</button>
+          </div>
+          <div className="section-image-reverse2">
+            <img  src="jeep1.jpg" alt="Large Image 1" />
+          </div>
+        </div>
+
+        <div className="section2">
+        <div className="section-image2">
+            <img src="jeep2.jpg" alt="Large Image 2" />
+          </div>
+          <div className="section-text2">
+          <h1 className="section-title2">MAST PRO Cartridges</h1>
+            <p>Експлозивно качество за съвършени татуировки – EMALLA картридж игли! Изработени с прецизност и иновация, те предлагат безкомпромисен контрол и комфорт. Изберете безопасност и ефективност за вашето творчество!</p>
+            <button className="learn-more-btn">Научете повече</button>
+          </div>
+
+        </div>
+
+        <div className="section reverse2">
+          <div className="section-text-reverse2">
+          <h1 className="section-title2">ProLine® Cartridges</h1>
+            <p>ProLine винаги е пионер в челните редици на технологиите и винаги е посветен да предлага на татуистите напълно ново изживяване. Осигурявайки на вас и вашите клиенти безпроблемно изживяване всеки път.</p>
+            <button className="learn-more-btn">Научете повече</button>
+          </div>
+          <div className="section-image-reverse2">
+            <img src="jeep3.jpg" alt="Large Image 3" />
+          </div>
+        </div>
+      </div>
+
+      <div className="image-third-container">
+        <h1 className='image-second-container-title'>При нас имате възможност да закупите:</h1>
+        <div className="image-box3">
+          <img src="jeep1.jpg" alt="Image 1" className="image3" />
+        </div>
+        <div className="image-box3">
+          <img src="jeep2.jpg" alt="Image 2" className="image3" />
+        </div>
+        <div className="image-box3">
+          <img src="jeep3.jpg" alt="Image 3" className="image3" />
+        </div>
+        <div className="image-box3">
+          <img src="jeep4.jpg" alt="Image 4" className="image3" />
+        </div>
+        <div className="image-box3">
+          <img src="home1.jpg" alt="Image 4" className="image3" />
+        </div>
+        <div className="image-box3">
+          <img src="home2.jpg" alt="Image 4" className="image3" />
+        </div>
+        <div className="image-box3">
+          <img src="home3.jpg" alt="Image 4" className="image3" />
+        </div>
+        <div className="image-box3">
+          <img src="home4.jpg" alt="Image 4" className="image3" />
+        </div>
+        <div className="image-box3">
+          <img src="home5.jpg" alt="Image 4" className="image3" />
+        </div>
+        <div className="image-box3">
+          <img src="home6.jpg" alt="Image 4" className="image3" />
+        </div>
+      </div>
 
       <div className="elfsight-container">
         <div

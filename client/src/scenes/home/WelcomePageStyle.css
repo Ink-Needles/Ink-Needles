@@ -1,7 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
 .elfsight-app-aab9349d-1ec7-4630-bf00-9134953a4904.eapps-instagram-feed.es-widget a[href*="https://elfsight.com"] {
   display: none !important;
-}	
+}
 
 .elfsight-container {
   display: flex;
@@ -20,12 +21,12 @@ html, body {
 .image-first-container {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 2px;
+  gap: 0px;
   background-color: black;
   width: 99vw;
-  height: 300px;
+  height: 350px;
   margin: 0;
-  padding: 35px 20px;
+  padding: 60px 35px 50px;
   box-sizing: border-box;
   overflow: hidden;
 }
@@ -40,8 +41,8 @@ html, body {
 }
 
 .image {
-  width: 100%;
-  height: 80%;
+  width: 90%;
+  height: 100%;
   object-fit: cover;
   display: block;
 }
@@ -70,7 +71,7 @@ html, body {
   margin-bottom: 25px;
 }
 
-.title1{
+.title1 {
   text-align: center;
   font-size: 40px;
   font-weight: 700; 
@@ -86,6 +87,7 @@ html, body {
   display: flex;
   flex-direction: column;
   gap: 40px;
+  padding-bottom: 40px;
 }
 
 .section {
@@ -120,6 +122,8 @@ html, body {
   flex: 1;
   padding: 20px;
   font-size: 18px;
+  text-align: center; /* Центрираме заглавието */
+  width: 100%;
 }
 
 .learn-more-btn {
@@ -136,4 +140,216 @@ html, body {
 
 .learn-more-btn:hover {
   background-color: #444;
+}
+
+.image-second-container {
+  display: grid;
+  grid-template-rows: auto 1fr; /* Заглавието заема минимално място, снимките останалото */
+  grid-template-columns: repeat(4, 1fr); /* Четири колони за снимките */
+  gap: 0px;
+  background-color: black;
+  width: 99vw;
+  height: 420px; /* Увеличена височина */
+  margin: 0;
+  padding: 20px 35px 50px; /* Добавен padding за заглавието */
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.image-second-container .image-second-container-title {
+  grid-column: span 4; /* Текста да заема цялата ширина на контейнера */
+  color: white;
+  text-align: center;
+  font-size: 24px;
+  font-family: 'Roboto', sans-serif;
+  margin-bottom: 30px; /* Разстояние между заглавието и снимките */
+}
+
+.image-box2 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.image2 {
+  width: 90%; /* Изображенията заемат цялата ширина на клетката */
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.large-container2 {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  padding-bottom: 40px;
+}
+
+.section2 {
+  display: flex;
+  align-items: center;
+  background-color: #f0f0f0;
+  width: 100%;
+  flex-wrap: wrap;
+}
+
+.section.reverse2 {
+  flex-direction: reverse;
+  padding-left: 20px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.section-image2 {
+  width: 53%;
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  padding: 0;
+}
+
+.section-image-reverse2 {
+  width: 53%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 0;
+}
+
+.section-image2 img {
+  width: 70%; 
+  height: auto;
+  object-fit: contain;
+}
+
+.section-image-reverse2 img  {
+  width: 70%; 
+  height: auto;
+  object-fit: contain;
+}
+
+.section-text2 {
+  flex: 1;
+  font-size: 18px;
+  margin-left: -120px;
+  padding: 50px;
+}
+
+.section-text-reverse2 {
+  flex: 1;
+  padding: 50px;
+  font-size: 18px;
+  margin-right: -200px;
+  text-align: center; /* Центрираме заглавието */
+  width: 100%;
+}
+
+.section-title2 {
+  font-size: 30px;  
+  margin-bottom: 5px;  
+  font-weight: bold; 
+  text-align: center; /* Центрираме заглавието */
+  width: 100%; 
+}
+
+.image-third-container {
+  display: grid;
+  grid-template-rows: auto 1fr; /* Заглавието заема минимално място, снимките остават */
+  grid-template-columns: repeat(10, 1fr); /* 10 колони за снимките */
+  gap: 10px; /* Леко разстояние между снимките */
+  background-color: black;
+  width: 100vw; /* Цялата ширина на екрана */
+  height: 420px; /* Увеличена височина */
+  margin: 0;
+  padding: 20px 0 50px; /* Разстояние само отгоре и отдолу */
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.image-second-container .image-second-container-title {
+  grid-column: span 10; /* Текста да заема цялата ширина на контейнера */
+  color: white;
+  text-align: center;
+  font-size: 24px;
+  font-family: 'Roboto', sans-serif;
+  margin-bottom: 30px; /* Разстояние между заглавието и снимките */
+}
+
+.image-box3 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.image3 {
+  width: 100%; /* Изображенията заемат цялата ширина на клетката */
+  height: 100%; /* Изображенията заемат цялата височина на клетката */
+  object-fit: cover; /* Съобразява изображенията да запълват клетката без да се изкривяват */
+  display: block;
+}
+
+
+/* Мобилни устройства с ширина до 400px и височина до 857px */
+@media (max-width: 400px) and (max-height: 857px) {
+
+  .image-first-container {
+    grid-template-columns: 1fr; /* Само една колона за мобилни устройства */
+    height: 200px; /* Намалена височина */
+    padding: 10px 5px; /* Намалено отстояние */
+  }
+
+  .quality-text {
+    max-width: 100%; /* Максимална ширина на текста */
+    padding: 0 10px; /* Намален padding */
+    margin-bottom: 25px;
+  }
+
+  .quality-text h1 {
+    font-size: 28px; /* Намален размер на заглавието */
+    margin-bottom: 15px;
+  }
+
+  .quality-text p {
+    font-size: 14px; /* Намален размер на параграфите */
+    margin-bottom: 20px;
+  }
+
+  .title1 {
+    font-size: 28px; /* Намален размер на заглавието */
+    margin-bottom: 15px;
+  }
+
+  .large-container {
+    padding: 10px; /* Намален padding */
+  }
+
+  .section {
+    flex-direction: column; /* Вертикално подреждане на елементите */
+    gap: 15px; /* Намален интервал */
+  }
+
+  .section-image {
+    width: 100%; /* Ширина 100% на изображението */
+  }
+
+  .section-image img {
+    width: 100%; /* 100% ширина на изображението */
+    object-fit: contain;
+  }
+
+  .section-text {
+    font-size: 14px; /* По-малък размер на текста */
+    padding: 10px; /* Намалено padding */
+  }
+
+  .learn-more-btn {
+    font-size: 14px; /* Намален размер на бутона */
+    padding: 8px 16px; /* По-малко padding за бутона */
+  }
 }
