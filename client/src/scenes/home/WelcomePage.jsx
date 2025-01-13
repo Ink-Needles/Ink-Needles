@@ -175,7 +175,7 @@ const WelcomePage = () => {
       </div>
 
       <div className="image-third-container">
-        <h1 className='image-second-container-title'>При нас имате възможност да закупите:</h1>
+        <h1 className='image-third-container-title'>При нас имате възможност да закупите:</h1>
         <div className="image-box3">
           <img src="jeep1.jpg" alt="Image 1" className="image3" />
         </div>
