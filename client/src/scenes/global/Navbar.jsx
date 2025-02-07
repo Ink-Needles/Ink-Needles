@@ -89,7 +89,7 @@ const Navbar = ({account}) => {
     setLoginError('');
     const decodedToken = jwtDecode(response.credential);
     const googleEmail = decodedToken.email;
-    const googleUserId = googleEmail;
+    const googleUserId = decodedToken.sub;
 
     try {
       // Attempt to log in the user
@@ -98,7 +98,7 @@ const Navbar = ({account}) => {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           identifier: googleEmail,
-          password: googleUserId,
+          sub: googleUserId,
         }),
       });
   
@@ -122,8 +122,8 @@ const Navbar = ({account}) => {
           body: JSON.stringify({
             username: googleEmail,
             email: googleEmail,
-            password: googleUserId,
             google: true,
+            sub: googleUserId,
           }),
         });
   
